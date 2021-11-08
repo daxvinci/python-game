@@ -36,7 +36,7 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (128,0,128)
 
-font_style = pygame.font.SysFont(None, 50)
+font_style = pygame.font.SysFont(None, 25)
 score_font = pygame.font.SysFont("comicsansms", 15)
 
 def Your_score(score):
@@ -46,11 +46,18 @@ def Your_score(score):
 def our_snake(snake_block, snake_list):       
        for x in snake_list:
               pygame.draw.rect(disp, blue, [x[0], x[1], snake_block, snake_block])
+       
+# def exit_game(message,color):
+#        while open == True:
+#        disp.fill(black)
+#        message(message,color)
+#        pygame.display.update()
+
 
 #created function for game over message
 def message(msg,color):
     mesg = font_style.render(msg, True, color)
-    disp.blit(mesg, [disp_width/2, disp_height/2])
+    disp.blit(mesg, [disp_width/4, disp_height/2])
 
 #created function for the game 
 def gameloop():
@@ -77,10 +84,19 @@ def gameloop():
                       pygame.display.update()
 
                       for event in pygame.event.get():
+                             if event.type == pygame.QUIT:
+                                     quit()
                              if event.type == pygame.KEYDOWN:
                                     if event.key == pygame.K_e:
-                                           open = True
-                                           dead = False
+                                           disp.fill(black)
+                                           message("1.Play Game \n 2.Quit",white)
+                                           if event.key == pygame.K_1:             #EDIT 
+                                                  gameloop()
+                                           if event.key == pygame.K_2:
+                                                  quit()
+                                           pygame.display.update()
+                                          #  open = True
+                                          #  dead = False
                                     if event.key == pygame.K_p:
                                            gameloop()
               
@@ -142,13 +158,14 @@ def gameloop():
                pygame.display.update()
                clock.tick(snake_speed)   #UNDERSTAND
 
+
                #randomly drop food 
                if x1 == foodx and y1 == foody: 
-                      foodx = round(random.randrange(0, disp_width - snake_fps) / 10.0) * 10.0  
-                      foody = round(random.randrange(0, disp_height - snake_fps) / 10.0) * 10.0 
+                      foodx = round(random.randrange(10, disp_width - snake_fps) / 10.0) * 10.0  
+                      foody = round(random.randrange(10, disp_height - snake_fps) / 10.0) * 10.0 
                       length_of_snake += 1
 
-                     
+
                clock.tick(snake_speed)    
 
 
